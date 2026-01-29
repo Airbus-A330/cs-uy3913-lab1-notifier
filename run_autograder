@@ -39,22 +39,15 @@ mkdir -p "$WORK_DIR/src/main/java/notifier"
 
 # Handle different submission formats
 if [ -d "$SUBMISSION_DIR/src/main/java/notifier" ]; then
-    # Full Maven structure: src/main/java/notifier/
     echo "Found: Maven structure (src/main/java/notifier/)"
     cp -r "$SUBMISSION_DIR/src/main/java/notifier/"* "$WORK_DIR/src/main/java/notifier/"
-
 elif [ -d "$SUBMISSION_DIR/notifier" ]; then
-    # Just notifier folder
     echo "Found: notifier/ folder"
     cp -r "$SUBMISSION_DIR/notifier/"* "$WORK_DIR/src/main/java/notifier/"
-
 elif ls "$SUBMISSION_DIR"/*.java 1>/dev/null 2>&1; then
-    # Java files at root
     echo "Found: Java files at root"
     cp "$SUBMISSION_DIR"/*.java "$WORK_DIR/src/main/java/notifier/"
-
 else
-    # Search recursively for Java files
     echo "Searching for Java files..."
     find "$SUBMISSION_DIR" -name "*.java" -type f -exec cp {} "$WORK_DIR/src/main/java/notifier/" \;
 fi
@@ -71,7 +64,6 @@ cd "$WORK_DIR"
 
 echo "=== Running mvn clean test ==="
 MVN_OUTPUT=$(mvn clean test 2>&1) || true
-MVN_EXIT_CODE=$?
 
 echo "$MVN_OUTPUT" > "$WORK_DIR/mvn_output.txt"
 
@@ -85,13 +77,27 @@ import os
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+# Point values for each test (total = 100)
+TEST_POINTS = {
+    "testEmailNotifierSendsMessage": 10,
+    "testSmsNotifierSendsMessage": 10,
+    "testSlackNotifierSendsMessage": 10,
+    "testLoggingNotifierLogsBeforeAndAfter": 10,
+    "testRetryingNotifierSuccess": 10,
+    "testCompositeNotifierSendsToAll": 10,
+    "testFakeNotifierRecordsMessage": 10,
+    "testSendWelcomeCallsNotifier": 10,
+    "testSendWelcomeIncludesUsername": 10,
+    "testSendWelcomeIncludesWelcome": 10,
+}
+
 def generate_results():
     results = {
         "output": "",
         "output_format": "text",
         "tests": [],
         "score": 0,
-        "max_score": 0
+        "max_score": 100
     }
 
     work_dir = Path("/autograder/work")
@@ -105,7 +111,6 @@ def generate_results():
 
     # Check for compilation errors
     if "COMPILATION ERROR" in mvn_output or "BUILD FAILURE" in mvn_output:
-        # Extract error message
         error_lines = []
         capture = False
         for line in mvn_output.split('\n'):
@@ -122,17 +127,15 @@ def generate_results():
         results["tests"].append({
             "name": "Compilation",
             "score": 0,
-            "max_score": 30,
+            "max_score": 100,
             "status": "failed",
             "output": error_msg[:1000]
         })
-        results["max_score"] = 30
         return results
 
     # Parse JUnit XML results
     tests_found = False
     total_score = 0
-    max_score = 0
     passed_count = 0
     failed_count = 0
 
@@ -146,11 +149,10 @@ def generate_results():
                     tests_found = True
                     classname = testcase.get("classname", "")
                     name = testcase.get("name", "")
-                    test_name = f"{classname.split('.')[-1]}.{name}"
+                    display_name = f"{classname.split('.')[-1]}.{name}"
 
-                    # Distribute 100 points across tests
-                    test_max_score = 33.33
-                    max_score += test_max_score
+                    # Get point value for this test
+                    test_max_score = TEST_POINTS.get(name, 10)
 
                     failure = testcase.find("failure")
                     error = testcase.find("error")
@@ -160,7 +162,7 @@ def generate_results():
                         failed_count += 1
                         msg = failure.get("message", "") or failure.text or "Test failed"
                         results["tests"].append({
-                            "name": test_name,
+                            "name": display_name,
                             "score": 0,
                             "max_score": test_max_score,
                             "status": "failed",
@@ -170,7 +172,7 @@ def generate_results():
                         failed_count += 1
                         msg = error.get("message", "") or error.text or "Test error"
                         results["tests"].append({
-                            "name": test_name,
+                            "name": display_name,
                             "score": 0,
                             "max_score": test_max_score,
                             "status": "failed",
@@ -179,7 +181,7 @@ def generate_results():
                     elif skipped is not None:
                         failed_count += 1
                         results["tests"].append({
-                            "name": test_name,
+                            "name": display_name,
                             "score": 0,
                             "max_score": test_max_score,
                             "status": "failed",
@@ -189,7 +191,7 @@ def generate_results():
                         passed_count += 1
                         total_score += test_max_score
                         results["tests"].append({
-                            "name": test_name,
+                            "name": display_name,
                             "score": test_max_score,
                             "max_score": test_max_score,
                             "status": "passed",
@@ -203,22 +205,20 @@ def generate_results():
         results["tests"].append({
             "name": "Test Execution",
             "score": 0,
-            "max_score": 30,
+            "max_score": 100,
             "status": "failed",
             "output": "No tests were executed. Check that your submission includes all required files."
         })
-        results["max_score"] = 30
         return results
 
     # Generate summary
     total_tests = passed_count + failed_count
     if failed_count == 0:
-        results["output"] = f"✅ All {total_tests} tests passed! Great job!"
+        results["output"] = f"🎉 All {total_tests} tests passed! Great job!\n\nScore: {total_score}/100"
     else:
-        results["output"] = f"Your code compiled successfully.\n\n✅ {passed_count}/{total_tests} tests passed\n❌ {failed_count}/{total_tests} tests failed"
+        results["output"] = f"Your code compiled successfully.\n\n✅ {passed_count}/{total_tests} tests passed\n❌ {failed_count}/{total_tests} tests failed\n\nScore: {total_score}/100"
 
     results["score"] = total_score
-    results["max_score"] = max_score
 
     return results
 
@@ -227,7 +227,7 @@ results = generate_results()
 with open("/autograder/results/results.json", "w") as f:
     json.dump(results, f, indent=2)
 
-print(f"Results: {results['score']}/{results.get('max_score', 'N/A')} points")
+print(f"Results: {results['score']}/100 points")
 PYTHON_SCRIPT
 
 echo "=== Autograder complete ==="

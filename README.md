@@ -126,14 +126,21 @@ zip submission.zip *.java
 2. Select "Compress" or "Create Archive"
 3. Upload the resulting zip file
 
-### Grading
+### Grading (100 Points Total)
 
-| Test | Points |
-|------|--------|
-| `sendWelcome_callsSend` | 33 |
-| `sendWelcome_includesUserName` | 33 |
-| `sendWelcome_includesWelcome` | 34 |
-| **Total** | **100** |
+| Test | Component | Points |
+|------|-----------|--------|
+| `testEmailNotifierSendsMessage` | EmailNotifier | 10 |
+| `testSmsNotifierSendsMessage` | SmsNotifier | 10 |
+| `testSlackNotifierSendsMessage` | SlackNotifier | 10 |
+| `testLoggingNotifierLogsBeforeAndAfter` | LoggingNotifier | 10 |
+| `testRetryingNotifierSuccess` | RetryingNotifier | 10 |
+| `testCompositeNotifierSendsToAll` | CompositeNotifier | 10 |
+| `testFakeNotifierRecordsMessage` | FakeNotifier | 10 |
+| `testSendWelcomeCallsNotifier` | NotificationService | 10 |
+| `testSendWelcomeIncludesUsername` | NotificationService | 10 |
+| `testSendWelcomeIncludesWelcome` | NotificationService | 10 |
+| **Total** | | **100** |
 
 ### Common Errors
 
@@ -148,6 +155,7 @@ zip submission.zip *.java
 - All classes must be in the `notifier` package (`package notifier;`)
 - `NotificationService` must have a constructor that accepts a `Notifier`
 - `sendWelcome(String userName)` must call `notifier.send()` with a message containing "Welcome" and the user's name
+- Each notifier should print output in the specified format (e.g., `[EMAIL]`, `[SMS]`, `[SLACK]`)
 
 ---
 
