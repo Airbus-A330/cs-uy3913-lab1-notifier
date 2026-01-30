@@ -253,25 +253,16 @@ If you see `BUILD FAILURE`, check the error messages or visit the Troubleshootin
 
 ### Step 2: Create Your Submission ZIP
 
-You must submit only your source code—not the whole project.
+You must submit only your source code — not the whole project.
 
-From the project root, use one of the following:
+Run the following commands from your project root to create the correct ZIP file:
 
-**Option 1: Zip the notifier folder (Recommended)**
 ```bash
 cd src/main/java
 zip -r submission.zip notifier/
 ```
 
-**Option 2: Zip the .java files only**
-```bash
-cd src/main/java/notifier
-zip submission.zip *.java
-```
-
-**Option 3: From IntelliJ / Finder**
-1. Right-click `src/main/java/notifier`
-2. Click "Compress" or "Create Archive"
+This will create a `submission.zip` file that includes all your `.java` source files inside the `notifier/` folder. This is the **only accepted submission format** for this lab to ensure uniformity.
 
 ### Step 3: Submit on Gradescope
 
