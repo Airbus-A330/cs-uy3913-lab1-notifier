@@ -25,8 +25,8 @@ Follow these steps to get started with the lab:
 - **Apache Maven**
 
 Refer to the toolchain setup guides for installation instructions:
-- [Toolchain Setup Windows]([https://docs.google.com/document/d/your-windows-guide](https://brightspace.nyu.edu/content/enforced/553930-SP26_CS-UY_3913_1_I_crse/Toolchain%20Setup%20Windows1.pdf))
-- [Toolchain Setup macOS]([https://docs.google.com/document/d/your-macos-guide](https://brightspace.nyu.edu/content/enforced/553930-SP26_CS-UY_3913_1_I_crse/Toolchain%20Setup%20macOS1.pdf))
+- [Toolchain Setup Windows]([https://docs.google.com/document/d/your-windows-guide](https://brightspace.nyu.edu/content/enforced/553930-SP26_CS-UY_3913_1_I_crse/Toolchain%20Setup%20Windows1.pdf])
+- [Toolchain Setup macOS]([https://docs.google.com/document/d/your-macos-guide](https://brightspace.nyu.edu/content/enforced/553930-SP26_CS-UY_3913_1_I_crse/Toolchain%20Setup%20macOS1.pdf])
 
 ### Clone the Starter Code Repository
 
