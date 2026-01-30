@@ -5,3 +5,10 @@ target/
 .vscode/
 .DS_Store
 .claude/
+
+# Prevent accidental commits of submissions/autograder
+*.zip
+*.jar
+autograder.zip
+solution.zip
+submission.zip

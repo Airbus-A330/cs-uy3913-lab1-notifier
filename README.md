@@ -183,33 +183,12 @@ src/main/java/notifier/FakeNotifier.java
 
 This class should:
 - Implement the `Notifier` interface
-- Record whether `send()` was called
-- Store the last message sent
+- Record whether `send()` was called (use a boolean field)
+- Store the last message sent (use a String field)
+- Provide `wasCalled()` method that returns true if send() was ever called
+- Provide `getLastMessage()` method that returns the stored message
 
-Example structure:
-
-```java
-public class FakeNotifier implements Notifier {
-    private boolean called = false;
-    private String lastMessage;
-
-    @Override
-    public void send(String message) {
-        called = true;
-        lastMessage = message;
-    }
-
-    public boolean wasCalled() {
-        return called;
-    }
-
-    public String getLastMessage() {
-        return lastMessage;
-    }
-}
-```
-
-You may also create a simpler version as an inner class in your test file if you prefer.
+The starter file contains TODO comments to guide your implementation.
 
 ### Step 2: Verify NotificationService
 
