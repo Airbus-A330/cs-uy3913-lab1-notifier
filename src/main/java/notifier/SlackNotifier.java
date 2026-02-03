@@ -11,11 +11,16 @@ package notifier;
 public class SlackNotifier implements Notifier {
 
     // TODO: Add private field for channel name
+    private final String channelName;
 
     // TODO: Add constructor that takes channel name
+    public SlackNotifier(String channelName) {
+        this.channelName = channelName;
+    }
 
     @Override
     public void send(String message) {
         // TODO: Print message in format: [SLACK] Posting to #{channel}: {message}
+        System.out.println("[SLACK] Posting to #" + channelName + ": " + message);
     }
 }

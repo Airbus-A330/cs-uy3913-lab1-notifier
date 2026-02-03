@@ -11,11 +11,16 @@ package notifier;
 public class EmailNotifier implements Notifier {
 
     // TODO: Add private field for recipient email
+    private final String email;
 
     // TODO: Add constructor that takes recipient email
+    public EmailNotifier(String email) {
+        this.email = email;
+    }
 
     @Override
     public void send(String message) {
         // TODO: Print message in format: [EMAIL] Sending to {email}: {message}
+        System.out.println("[EMAIL] Sending to " + email + ": " + message);
     }
 }
