@@ -11,8 +11,12 @@ package notifier;
 public class NotificationService {
 
     // TODO: Add private field for notifier
+    private Notifier notifier;
 
     // TODO: Add constructor that takes a Notifier
+    public NotificationService(Notifier notifier) {
+        this.notifier = notifier;
+    }
 
     /**
      * Sends a welcome message to the given user.
@@ -20,5 +24,6 @@ public class NotificationService {
      */
     public void sendWelcome(String userName) {
         // TODO: Call notifier.send() with a welcome message
+        notifier.send("Welcome, " + userName + "!");
     }
 }
