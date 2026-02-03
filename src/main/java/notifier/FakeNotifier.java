@@ -14,21 +14,25 @@ package notifier;
 public class FakeNotifier implements Notifier {
 
     // TODO: Add private boolean field to track if send() was called
+    private boolean sendCalled = false;
 
     // TODO: Add private String field to store the last message
+    private String lastMessage = "";
 
     @Override
     public void send(String message) {
         // TODO: Record that send was called and store the message
+        sendCalled = true;
+        lastMessage = message;
     }
 
     public boolean wasCalled() {
         // TODO: Return true if send() was called
-        return false;
+        return sendCalled;
     }
 
     public String getLastMessage() {
         // TODO: Return the last message that was sent
-        return null;
+        return lastMessage;
     }
 }

@@ -44,10 +44,10 @@ public class RetryingNotifier implements Notifier {
                 return;
             } catch (Exception e) {
                 // It didn't work, so increment the attempt counter.
-                attempt++;
+                attempts++;
 
                 // If we've exceeded maxRetries, throw a RuntimeException.
-                if (attempt > maxRetries) {
+                if (attempts > maxRetries) {
                     // Throw a custom RuntimeException error
                     throw new RuntimeException("Failed to send message after the maximum amount of retries.", e);
                 }
