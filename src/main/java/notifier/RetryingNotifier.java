@@ -18,11 +18,42 @@ package notifier;
 public class RetryingNotifier implements Notifier {
 
     // TODO: Add private fields for wrapped notifier and maxRetries
+    private Notifier wrappedNotifier;
+    private int maxRetries;
 
     // TODO: Add constructor that takes Notifier and maxRetries
+    public RetryingNotifier(Notifier notif, int maxRetries) {
+        this.wrappedNotifier = notif;
+        this.maxRetries = maxRetries;
+    }
 
     @Override
     public void send(String message) {
         // TODO: Implement retry logic
+
+        // Log how many attempts have been made; start at 0.
+        int attempts = 0;
+
+        // We're going to keep trying this until we either succeed or run out of attempts.
+        while (true) {  
+            try {
+                // Try to send the message using the wrapped notifier.
+                wrappedNotifier.send(message);
+
+                // It worked, exit the loop.
+                return;
+            } catch (Exception e) {
+                // It didn't work, so increment the attempt counter.
+                attempt++;
+
+                // If we've exceeded maxRetries, throw a RuntimeException.
+                if (attempt > maxRetries) {
+                    // Throw a custom RuntimeException error
+                    throw new RuntimeException("Failed to send message after the maximum amount of retries.", e);
+                }
+
+                System.out.println("[RETRY] Attempt " + attempts + " of " + maxRetries);
+            }
+        }
     }
 }

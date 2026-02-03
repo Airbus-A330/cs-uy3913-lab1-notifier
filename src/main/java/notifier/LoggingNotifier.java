@@ -17,11 +17,18 @@ package notifier;
 public class LoggingNotifier implements Notifier {
 
     // TODO: Add private field for wrapped notifier
+    private Notifier wrappedNotifier;
 
     // TODO: Add constructor that takes a Notifier
+    public LoggingNotifier(Notifier notif) {
+        this.wrappedNotifier = notif;
+    }
 
     @Override
     public void send(String message) {
         // TODO: Log before, call wrapped.send(), log after
+        System.out.println("[LOG] Before sending: " + message);
+        wrappedNotifier.send(message);
+        System.out.println("[LOG] After sending: " + message);
     }
 }

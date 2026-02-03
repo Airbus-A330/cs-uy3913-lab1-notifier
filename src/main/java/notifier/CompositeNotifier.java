@@ -18,12 +18,19 @@ import java.util.Arrays;
 public class CompositeNotifier implements Notifier {
 
     // TODO: Add private List<Notifier> field
+    private List<Notifier> notifiers;
 
     // TODO: Add constructor that takes Notifier... (varargs)
     // Hint: Use Arrays.asList() to convert varargs to List
+    public CompositeNotifier(Notifier... varargs) {
+        this.notifiers = new ArrayList<>(Arrays.asList(varargs));
+    }
 
     @Override
     public void send(String message) {
         // TODO: Loop through notifiers and call send() on each
+        for (Notifier notifier : notifiers) {
+            notifier.send(message);
+        }
     }
 }
