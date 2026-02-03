@@ -10,31 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * DO NOT MODIFY THIS FILE.
  *
- * These tests verify that your NotificationService implementation:
- * - Calls the notifier's send() method
- * - Includes the user's name in the message
- * - Includes "Welcome" in the message
+ * These tests will pass once you correctly implement:
+ * - NotificationService (with a constructor that takes a Notifier)
+ * - Your Notifier implementations
  */
 class NotificationServiceTest {
-
-    private static class FakeNotifier implements Notifier {
-        private boolean called = false;
-        private String lastMessage = null;
-
-        @Override
-        public void send(String message) {
-            this.called = true;
-            this.lastMessage = message;
-        }
-
-        public boolean wasCalled() {
-            return called;
-        }
-
-        public String getLastMessage() {
-            return lastMessage;
-        }
-    }
 
     private FakeNotifier fake;
     private NotificationService service;
@@ -48,20 +28,20 @@ class NotificationServiceTest {
     @Test
     void sendWelcome_callsSend() {
         service.sendWelcome("Test");
-        assertTrue(fake.wasCalled());
+        assertTrue(fake.wasCalled(), "send() should be called");
     }
 
     @Test
     void sendWelcome_includesUserName() {
         service.sendWelcome("Alice");
-        assertNotNull(fake.getLastMessage());
-        assertTrue(fake.getLastMessage().contains("Alice"));
+        assertNotNull(fake.getLastMessage(), "Message should not be null");
+        assertTrue(fake.getLastMessage().contains("Alice"), "Message should contain the username");
     }
 
     @Test
     void sendWelcome_includesWelcome() {
         service.sendWelcome("Bob");
-        assertNotNull(fake.getLastMessage());
-        assertTrue(fake.getLastMessage().contains("Welcome"));
+        assertNotNull(fake.getLastMessage(), "Message should not be null");
+        assertTrue(fake.getLastMessage().contains("Welcome"), "Message should contain 'Welcome'");
     }
 }

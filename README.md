@@ -227,8 +227,8 @@ Or from IntelliJ:
 The tests included in this repository are **local correctness checks**.
 They help you verify that your implementation behaves correctly before submitting.
 
-- You should see **3 tests pass locally** when running `mvn clean test`.
-- These local tests provide a basic correctness check only.
+- Tests will **fail initially** until you implement `FakeNotifier` and `NotificationService`.
+- Once implemented correctly, you should see **3 tests pass locally**.
 - Final grading is based on manual review of your code.
 
 ---
@@ -367,13 +367,13 @@ cs-uy3913-lab1-notifier/
 └── src/
     ├── main/java/notifier/
     │   ├── Notifier.java              ← Interface (provided)
-    │   ├── EmailNotifier.java         ← Provided (reference implementation)
+    │   ├── EmailNotifier.java         ← TODO: Implement
     │   ├── SmsNotifier.java           ← TODO: Implement
     │   ├── SlackNotifier.java         ← TODO: Implement
     │   ├── LoggingNotifier.java       ← TODO: Implement
     │   ├── RetryingNotifier.java      ← TODO: Implement
     │   ├── CompositeNotifier.java     ← TODO: Implement
-    │   ├── NotificationService.java   ← Provided (reference implementation)
+    │   ├── NotificationService.java   ← TODO: Implement
     │   └── FakeNotifier.java          ← TODO: Implement
     └── test/java/notifier/
         └── NotificationServiceTest.java  ← DO NOT MODIFY
