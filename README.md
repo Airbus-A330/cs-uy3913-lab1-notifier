@@ -164,8 +164,8 @@ NotificationService service = new NotificationService(notifier);
 service.sendWelcome("Alice");
 ```
 
-**Tip:** The autograder includes multiple tests verifying:
-- That the message contains both "Welcome" and the student's name
+**Tip:** Your implementation will be evaluated on:
+- That the message contains both "Welcome" and the user's name
 - That the `send()` method is actually invoked
 
 ---
@@ -197,11 +197,11 @@ The file:
 src/test/java/notifier/NotificationServiceTest.java
 ```
 
-is provided for you.
+is provided for you and is fully implemented.
 
 ⚠️ **DO NOT MODIFY THIS FILE.**
 
-The autograder supplies and runs its own test suite. This file is provided as a reference so you can see how your classes will be tested. You do not need to write or change any tests.
+This file contains 3 local tests that verify basic functionality. You do not need to write or change any tests.
 
 ### Step 3: Run All Tests
 
@@ -218,15 +218,22 @@ Tests run: 3, Failures: 0, Errors: 0
 BUILD SUCCESS
 ```
 
-Note:  The local test is just for reference, and the full evaluation is done on Gradescope.
-
 Or from IntelliJ:
 1. Right-click `src/test/java`
 2. Click **Run 'All Tests'**
 
+### About Local Tests
+
+The tests included in this repository are **local correctness checks**.
+They help you verify that your implementation behaves correctly before submitting.
+
+- You should see **3 tests pass locally** when running `mvn clean test`.
+- These local tests provide a basic correctness check only.
+- Final grading is based on manual review of your code.
+
 ---
 
-## Section 6: Part 5 – Build and Submit to Gradescope
+## Section 6: Part 5 – Build and Submit
 
 This section ensures your project builds correctly and guides you through submission.
 
@@ -245,33 +252,29 @@ Tests run: 3, Failures: 0, Errors: 0
 BUILD SUCCESS
 ```
 
-Note:  The local test is just for reference, and the full evaluation is done on Gradescope.
-
 If you see `BUILD FAILURE`, check the error messages or visit the Troubleshooting section.
 
 ### Step 2: Create Your Submission ZIP
 
-You must submit only your source code — not the whole project.
-
-Run the following commands from your project root to create the correct ZIP file:
+Run the following command from your project root to create the correct ZIP file:
 
 ```bash
-cd src/main/java
-zip -r submission.zip notifier/
+zip -r submission.zip src/ pom.xml
 ```
 
-This will create a `submission.zip` file containing the entire `notifier/` folder with all your `.java` source files inside.
+This will create a `submission.zip` file containing your source code and build configuration.
 
-**Important:** This is the only accepted submission format. The ZIP must contain the `notifier/` folder itself (not just loose `.java` files).
+**Important:** Your ZIP must contain:
+- `src/` — your source code folder
+- `pom.xml` — your Maven build file
 
-### Step 3: Submit on Gradescope
+No other files or folders are required.
 
-1. Visit: [gradescope.com](https://gradescope.com)
-2. Open the **CS-UY 3913 – Lab 1** assignment
-3. Click **Submit**
-4. Upload your ZIP file
-5. Click **Test Autograder**
-6. Check your score — full credit is **100/100**
+### Step 3: Submit Your Work
+
+1. Upload your ZIP file to the designated submission location
+2. Ensure your submission includes both `src/` and `pom.xml`
+3. Verify your submission was received successfully
 
 ---
 
@@ -309,7 +312,7 @@ This section covers common setup, build, and submission issues you might encount
 
 | Mistake | How to Avoid |
 |---------|--------------|
-| Wrong zip structure | Run `cd src/main/java && zip -r submission.zip notifier/` exactly as shown |
+| Wrong zip structure | Run `zip -r submission.zip src/ pom.xml` from project root |
 | Forgetting `package notifier;` | Add it as the first line in every file |
 | Using wrong Java version | Must be Java 17 |
 
@@ -323,38 +326,35 @@ This section covers common setup, build, and submission issues you might encount
 
 ---
 
-## Section 8: Submission Checklist & Scoring
+## Section 8: Submission Checklist & Grading
 
-Before submitting, make sure you've checked every box below. This avoids last-minute grading issues and ensures a smooth autograder run.
+Before submitting, make sure you've checked every box below.
 
 ### Submission Checklist
 
 | ✅ | Task |
 |----|------|
-| ☐ | All 9 `.java` files are implemented and placed inside the `notifier/` folder |
+| ☐ | All 9 `.java` files are implemented and placed inside `src/main/java/notifier/` |
 | ☐ | All `.java` files include `package notifier;` at the top |
-| ☐ | `mvn clean test` passes locally (no red errors, 10 tests pass) |
-| ☐ | You did **not** modify `NotificationServiceTest.java` |
-| ☐ | You zipped only the `notifier/` folder (no extra folders or nesting) |
-| ☐ | Submitted the zip to Gradescope under Lab 1 |
-| ☐ | You see a score out of 100 after uploading |
+| ☐ | `mvn clean test` passes locally (no red errors, 3 tests pass) |
+| ☐ | You did **not** modify the provided `NotificationServiceTest.java` |
+| ☐ | Your ZIP contains `src/` and `pom.xml` |
 | ☐ | You've read the README.md for lab goals, build help, and tips |
 
-### What the Autograder Tests
+### Grading Criteria
 
-| Test | What It Verifies | Points |
-|------|------------------|--------|
-| `testEmailNotifierSendsMessage` | Console output format for EmailNotifier | 10 |
-| `testSmsNotifierSendsMessage` | Console output format for SmsNotifier | 10 |
-| `testSlackNotifierSendsMessage` | Console output format for SlackNotifier | 10 |
-| `testLoggingNotifierLogsBeforeAndAfter` | Logs + delegation behavior | 10 |
-| `testRetryingNotifierSuccess` | Delegation with retry logic | 10 |
-| `testCompositeNotifierSendsToAll` | Sends to multiple notifiers | 10 |
-| `testFakeNotifierRecordsMessage` | Tracks `send()` call | 10 |
-| `testSendWelcomeCallsNotifier` | `sendWelcome()` uses Notifier | 10 |
-| `testSendWelcomeIncludesUsername` | Message includes name | 10 |
-| `testSendWelcomeIncludesWelcome` | Message includes "Welcome" | 10 |
-| **TOTAL** | | **100** |
+Submissions are reviewed manually. Grading is based on:
+
+| Criterion | What We Look For |
+|-----------|------------------|
+| Correct behavior | Each notifier class produces the expected output format |
+| Code structure | Proper use of interfaces, constructors, and fields |
+| Output format | Messages match the specified format exactly |
+| Composition | Decorators correctly wrap and delegate to other notifiers |
+| Testing support | FakeNotifier correctly tracks calls and messages |
+| NotificationService | `sendWelcome()` includes "Welcome" and the username |
+
+Local test results do not determine final scores.
 
 ---
 
@@ -367,14 +367,14 @@ cs-uy3913-lab1-notifier/
 └── src/
     ├── main/java/notifier/
     │   ├── Notifier.java              ← Interface (provided)
-    │   ├── EmailNotifier.java         ← TODO: Implement
+    │   ├── EmailNotifier.java         ← Provided (reference implementation)
     │   ├── SmsNotifier.java           ← TODO: Implement
     │   ├── SlackNotifier.java         ← TODO: Implement
     │   ├── LoggingNotifier.java       ← TODO: Implement
     │   ├── RetryingNotifier.java      ← TODO: Implement
     │   ├── CompositeNotifier.java     ← TODO: Implement
-    │   ├── NotificationService.java   ← TODO: Implement
-    │   └── FakeNotifier.java          ← TODO: Implement (or use inner class)
+    │   ├── NotificationService.java   ← Provided (reference implementation)
+    │   └── FakeNotifier.java          ← TODO: Implement
     └── test/java/notifier/
         └── NotificationServiceTest.java  ← DO NOT MODIFY
 ```

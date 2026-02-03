@@ -6,9 +6,6 @@ target/
 .DS_Store
 .claude/
 
-# Prevent accidental commits of submissions/autograder
+# Prevent accidental commits of build artifacts
 *.zip
 *.jar
-autograder.zip
-solution.zip
-submission.zip

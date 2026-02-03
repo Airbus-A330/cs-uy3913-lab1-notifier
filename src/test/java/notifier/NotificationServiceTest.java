@@ -5,30 +5,34 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for NotificationService.
+ *
+ * DO NOT MODIFY THIS FILE.
+ *
+ * These tests verify that your NotificationService implementation:
+ * - Calls the notifier's send() method
+ * - Includes the user's name in the message
+ * - Includes "Welcome" in the message
+ */
 class NotificationServiceTest {
 
-    /**
-     * Fake notifier for testing - records messages instead of sending them.
-     * TODO: implement this class
-     */
-    static class FakeNotifier implements Notifier {
-
-        // TODO: add field to track if send() was called
-        // TODO: add field to store the last message
+    private static class FakeNotifier implements Notifier {
+        private boolean called = false;
+        private String lastMessage = null;
 
         @Override
         public void send(String message) {
-            // TODO: record the message
+            this.called = true;
+            this.lastMessage = message;
         }
 
         public boolean wasCalled() {
-            // TODO: return true if send() was called
-            return false;
+            return called;
         }
 
         public String getLastMessage() {
-            // TODO: return the last message
-            return null;
+            return lastMessage;
         }
     }
 
@@ -43,22 +47,21 @@ class NotificationServiceTest {
 
     @Test
     void sendWelcome_callsSend() {
-        // TODO: call service.sendWelcome("Test")
-        // TODO: assert that fake.wasCalled() is true
-        fail("implement this test");
+        service.sendWelcome("Test");
+        assertTrue(fake.wasCalled());
     }
 
     @Test
     void sendWelcome_includesUserName() {
-        // TODO: call service.sendWelcome("Alice")
-        // TODO: assert that fake.getLastMessage() contains "Alice"
-        fail("implement this test");
+        service.sendWelcome("Alice");
+        assertNotNull(fake.getLastMessage());
+        assertTrue(fake.getLastMessage().contains("Alice"));
     }
 
     @Test
     void sendWelcome_includesWelcome() {
-        // TODO: call service.sendWelcome("Bob")
-        // TODO: assert that fake.getLastMessage() contains "Welcome"
-        fail("implement this test");
+        service.sendWelcome("Bob");
+        assertNotNull(fake.getLastMessage());
+        assertTrue(fake.getLastMessage().contains("Welcome"));
     }
 }
