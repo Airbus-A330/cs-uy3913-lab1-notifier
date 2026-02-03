@@ -214,9 +214,11 @@ mvn clean test
 You should see:
 
 ```
-Tests run: 10, Failures: 0, Errors: 0
+Tests run: 3, Failures: 0, Errors: 0
 BUILD SUCCESS
 ```
+
+Note:  The local test is just for reference, and the full evaluation is done on Gradescope.
 
 Or from IntelliJ:
 1. Right-click `src/test/java`
@@ -239,9 +241,11 @@ mvn clean test
 Expected result (after implementation):
 
 ```
-Tests run: 10, Failures: 0, Errors: 0
+Tests run: 3, Failures: 0, Errors: 0
 BUILD SUCCESS
 ```
+
+Note:  The local test is just for reference, and the full evaluation is done on Gradescope.
 
 If you see `BUILD FAILURE`, check the error messages or visit the Troubleshooting section.
 
