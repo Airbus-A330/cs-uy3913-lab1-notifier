@@ -17,7 +17,7 @@ package notifier;
 public class LoggingNotifier implements Notifier {
 
     // TODO: Add private field for wrapped notifier
-    private Notifier wrappedNotifier;
+    private final Notifier wrappedNotifier;
 
     // TODO: Add constructor that takes a Notifier
     public LoggingNotifier(Notifier notif) {
