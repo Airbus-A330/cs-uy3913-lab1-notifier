@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class CompositeNotifier implements Notifier {
 
     // TODO: Add private List<Notifier> field
-    private List<Notifier> notifiers;
+    private final List<Notifier> notifiers;
 
     // TODO: Add constructor that takes Notifier... (varargs)
     // Hint: Use Arrays.asList() to convert varargs to List

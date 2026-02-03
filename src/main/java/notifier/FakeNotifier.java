@@ -17,7 +17,7 @@ public class FakeNotifier implements Notifier {
     private boolean sendCalled = false;
 
     // TODO: Add private String field to store the last message
-    private String lastMessage = "";
+    private String lastMessage = null;
 
     @Override
     public void send(String message) {
