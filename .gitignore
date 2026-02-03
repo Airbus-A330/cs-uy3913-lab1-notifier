@@ -4,7 +4,6 @@ target/
 *.iml
 .vscode/
 .DS_Store
-.claude/
 
 # Prevent accidental commits of build artifacts
 *.zip
